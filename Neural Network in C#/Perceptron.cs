@@ -9,7 +9,7 @@ namespace Neural_Network_in_C_
         private float bias;
         private float learningRate;
         private string typeActivationFunction;
-        public int output;
+        public float output;
         public int espectedOutput;
         private float error = 0.0f;
         public static float[] RandomizeNumber(int length){
@@ -21,7 +21,7 @@ namespace Neural_Network_in_C_
             }
             return randomNumbers;
         }
-        public Perceptron(int inputLength, string typeActivationFunction="scalon", float learningRate=0.1F)
+        public Perceptron(int inputLength, string typeActivationFunction="step", float learningRate=0.1F)
         {
             this.learningRate = learningRate;
             bias = RandomizeNumber(1)[0];
@@ -81,15 +81,33 @@ namespace Neural_Network_in_C_
             sum+=bias;
             return sum;
         }
-        public int ActivationFunction(string functionName){
+        public float ActivationFunction(string functionName){
 
             return functionName switch
             {
-                "scalon" => Scalon(),
-                "sigmoide" => Scalon(),
-                _ => Scalon(),
+                "step" => StepFunction(),
+                "sigmoid" => SigmoidFunction(),
+                "thanh" => Thanh(),
+                "relu" => ReLU(),
+                _ => StepFunction(),
             };
         }
-        public int Scalon()=> WeightedSum()>=0? 1 : 0;
+        //1 o 0
+        public int StepFunction()=> WeightedSum()>=0? 1 : 0;
+        //mapea el valor entre 0 y 1
+        public float SigmoidFunction(){
+            float x = WeightedSum();
+            return 1/(1+Math.Exp(-x));
+        }
+        //mapea el valor entre -1 y 1 
+        public float Thanh(){
+            float x = WeightedSum();
+            return (Math.Exp(x)-Math.Exp(-x))/(Math.Exp(x)+Math.Exp(-x));
+        }
+        //positivo devuelve el valor sino devuelve 0
+        public float ReLU(){ 
+            float x = weightedSum();
+            return x>0? x: 0;
+        }
     }
 }
