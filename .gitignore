@@ -1,0 +1,5 @@
+# Visual Studio Code
+.vscode/
+# Build directories
+Neural Network in C#/bin/
+Neural Network in C#/obj
