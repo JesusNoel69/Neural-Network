@@ -7,11 +7,31 @@ E1  E2  AND
 1   1   1
 */
 
-// Perceptron perceptronSimple = new([1,0,0,1]);//inputs
-// perceptronSimple.AcitvationFunction("scalon");
-// Console.WriteLine(perceptronSimple.output);
-//inputs[]  , expectedOutput , learnRate?
-float[][] inputs =[[0,0],[0,1],[1,0],[1,1]];
-int[] espectedOutput=[0,0,0,1];
-Perceptron perceptronSimple = new(inputs[0].Length);
-perceptronSimple.Train(inputs, espectedOutput, 30);
+// Definición de los datos de entrada y salida esperada
+float[][] inputs =
+[
+    [0, 0],
+    [0, 1],
+    [1, 0],
+    [1, 1]
+];
+
+int[] expectedOutputs = [0, 0, 0, 1];
+
+Layer inputLayer = new()
+{
+    layer = [new Perceptron(2), new Perceptron(2)]
+};
+
+List<Layer> hiddenLayers =
+[
+    new Layer { layer = [new Perceptron(2), new Perceptron(2)] },
+    new Layer { layer = [new Perceptron(2), new Perceptron(2)] }
+];
+
+Layer outputLayer = new Layer
+{
+    layer = [new Perceptron(2)]
+};
+MultiLayerPerceptron multiLayerPerceptron = new MultiLayerPerceptron(inputLayer, hiddenLayers, outputLayer);
+multiLayerPerceptron.TrainGlobal(inputs, expectedOutputs, 30); //inputs, expectedOutputs, epochs
