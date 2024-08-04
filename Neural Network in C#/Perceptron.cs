@@ -106,7 +106,7 @@ namespace Neural_Network_in_C_
         }
         //positivo devuelve el valor sino devuelve 0
         public float ReLU(){ 
-            float x = weightedSum();
+            float x = WeightedSum();
             return x>0? x: 0;
         }
     }
